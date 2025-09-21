@@ -29,4 +29,4 @@ A GitHub Action (`.github/workflows/import-backlog.yml`) automatically creates I
 
 ### 💡 Contribution
 
-BitWrite.Foundation is still evolving. Contributions, feedback, and ideas are welcome!
+BitWrite.Foundation is still evolving. Contributions, feedback, and ideas are welcome! 
