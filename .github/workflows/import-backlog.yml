@@ -1,0 +1,77 @@
+name: Import Backlog
+
+on:
+  push:
+    paths:
+      - '.github/backlog.yml'
+
+jobs:
+  import-backlog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up GitHub CLI
+        uses: cli/gh-actions@v2
+
+      - name: Import backlog as issues
+        run: |
+          BACKLOG_FILE=".github/backlog.yml"
+          if [ ! -f "$BACKLOG_FILE" ]; then
+            echo "❌ File $BACKLOG_FILE not found!"
+            exit 1
+          fi
+
+          awk '
+            BEGIN {RS="- title:"; FS="\n"}
+            NR>1 {
+              title=$1
+              body=""
+              milestone=""
+              labels=""
+              epic=""
+              feature=""
+              for(i=2;i<=NF;i++){
+                line=$i
+                if(line ~ /^  milestone:/) milestone=line
+                else if(line ~ /^  labels:/) labels=line
+                else if(line ~ /^\*\*Epic:\*\*/) epic=line
+                else if(line ~ /^\*\*Feature:\*\*/) feature=line
+                else body=body line "\n"
+              }
+              gsub(/^ +| +$/,"",title)
+              gsub(/^  milestone: /,"",milestone)
+              gsub(/^  labels: /,"",labels)
+              gsub(/^\*\*Epic:\*\* /,"",epic)
+              gsub(/^\*\*Feature:\*\* /,"",feature)
+
+              # labels حرفه‌ای
+              split(labels, arr, ",")
+              final_labels=""
+              for(j in arr){
+                l=arr[j]
+                gsub(/^ +| +$/,"",l)
+                if(l != "") final_labels=final_labels l ","
+              }
+              if(epic != "") final_labels=final_labels epic ","
+              if(feature != "") final_labels=final_labels feature ","
+              gsub(/,$/,"",final_labels)
+
+              if(title != ""){
+                # بررسی وجود Issue با همان عنوان
+                check_cmd="gh issue list --search \"" title "\" --json title --jq \'.[] | .title\'"
+                existing=$(eval $check_cmd)
+                if(existing != ""){
+                  print "⚠️ Issue already exists: " title
+                } else {
+                  cmd="gh issue create --title \"" title "\" --body \"" body "\""
+                  if(milestone != "") cmd=cmd " --milestone \"" milestone "\""
+                  if(final_labels != "") cmd=cmd " --label \"" final_labels "\""
+                  print "📝 Creating issue: " title
+                  system(cmd)
+                }
+              }
+            }
+          ' "$BACKLOG_FILE"

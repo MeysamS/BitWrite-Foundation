@@ -1,0 +1,180 @@
+- title: "Core: Domain Primitives"
+  body: |
+    **Epic:** Core  
+    **Feature:** Domain Primitives  
+
+    - [ ] Define `Entity`, `ValueObject`, `AggregateRoot`  
+    - [ ] Define `DomainEvent` & dispatcher abstraction  
+    - [ ] Implement `Result<T>` pattern for success/failure handling  
+    - [ ] Add base exceptions (DomainException, ValidationException)  
+  milestone: "Core"
+  labels: ["feature"]
+
+- title: "CQRS: Abstractions"
+  body: |
+    **Epic:** CQRS  
+    **Feature:** Abstractions  
+
+    - [ ] Define `ICommand`, `IQuery`, `ICommandHandler`, `IQueryHandler`  
+    - [ ] Create `ICommandProcessor` & `IQueryProcessor` interfaces  
+  milestone: "CQRS"
+  labels: ["feature"]
+
+- title: "CQRS: Implementation"
+  body: |
+    **Epic:** CQRS  
+    **Feature:** Implementation  
+
+    - [ ] Implement synchronous + async dispatchers  
+    - [ ] Add pipeline behavior support (decorators/middleware)  
+    - [ ] Add default behaviors: Logging, Validation, Transaction  
+  milestone: "CQRS"
+  labels: ["feature"]
+
+- title: "EventBus: In-Memory"
+  body: |
+    **Epic:** EventBus  
+    **Feature:** In-Memory EventBus  
+
+    - [ ] Define `IEventBus` abstraction  
+    - [ ] Implement In-Memory publisher & subscriber  
+    - [ ] Unit tests for pub/sub  
+  milestone: "EventBus"
+  labels: ["feature"]
+
+- title: "Event Modeling"
+  body: |
+    **Epic:** Event-Driven Architecture  
+    **Feature:** Event Modeling  
+
+    - [ ] Define domain events per aggregate  
+    - [ ] Design event schemas for microservices  
+    - [ ] Support versioning of events  
+    - [ ] Add guidelines for event consistency and idempotency  
+  milestone: "EventModeling"
+  labels: ["feature"]
+
+- title: "Messaging: Inbox / Outbox Pattern"
+  body: |
+    **Epic:** Event-Driven Architecture  
+    **Feature:** Inbox / Outbox  
+
+    - [ ] Implement Outbox pattern for reliable event publishing  
+    - [ ] Implement Inbox pattern for idempotent event consumption  
+    - [ ] Provide database-agnostic implementation (Postgres, SQL Server)  
+    - [ ] Ensure transactional consistency between state changes and events  
+    - [ ] Unit and integration tests for Inbox/Outbox  
+  milestone: "Messaging"
+  labels: ["feature"]
+
+- title: "Persistence: Abstractions"
+  body: |
+    **Epic:** Persistence  
+    **Feature:** Repository Abstractions  
+
+    - [ ] Define `IRepository<T>`, `IUnitOfWork`  
+    - [ ] Define read/write separation  
+  milestone: "Persistence"
+  labels: ["feature"]
+
+- title: "Persistence: Adapters"
+  body: |
+    **Epic:** Persistence  
+    **Feature:** EF Core, Dapper, MongoDB Adapters  
+
+    - [ ] EF Core adapter  
+    - [ ] Dapper adapter  
+    - [ ] MongoDB adapter  
+  milestone: "Persistence"
+  labels: ["feature"]
+
+- title: "Validation: FluentValidation Integration"
+  body: |
+    **Epic:** Validation  
+    **Feature:** FluentValidation  
+
+    - [ ] Add pipeline validation behavior  
+    - [ ] Create standard validation result type  
+    - [ ] Sample validators for CQRS commands  
+  milestone: "Validation"
+  labels: ["feature"]
+
+- title: "Observability: Logging & Tracing"
+  body: |
+    **Epic:** Observability  
+    **Feature:** Logging, Metrics, Tracing  
+
+    - [ ] Define `ILogger` abstraction (adapter pattern)  
+    - [ ] Serilog integration  
+    - [ ] OpenTelemetry integration  
+    - [ ] Health checks & metrics endpoint  
+  milestone: "Observability"
+  labels: ["feature"]
+
+- title: "Security: JWT & Roles"
+  body: |
+    **Epic:** Security  
+    **Feature:** JWT Authentication & Authorization  
+
+    - [ ] JWT validation helpers  
+    - [ ] Role-based & policy-based authorization  
+    - [ ] Support for external identity providers  
+  milestone: "Security"
+  labels: ["feature"]
+
+- title: "API: Helpers"
+  body: |
+    **Epic:** API  
+    **Feature:** API Utilities  
+
+    - [ ] Global error handling middleware  
+    - [ ] Standard API response format  
+    - [ ] API versioning  
+    - [ ] Swagger/OpenAPI integration  
+  milestone: "API"
+  labels: ["feature"]
+
+- title: "Testing: Utilities"
+  body: |
+    **Epic:** Testing  
+    **Feature:** Unit & Integration Test Helpers  
+
+    - [ ] InMemory EventBus for unit tests  
+    - [ ] Test fixtures for CQRS handlers  
+    - [ ] Mock repository implementations  
+    - [ ] Sample integration tests setup  
+  milestone: "Testing"
+  labels: ["feature"]
+
+- title: "DevExperience: Dotnet Templates"
+  body: |
+    **Epic:** DevExperience  
+    **Feature:** Dotnet Templates  
+
+    - [ ] `dotnet new bitwrite-service` template  
+    - [ ] Pre-configured folders & DI setup  
+    - [ ] Sample CQRS/DDD structure  
+  milestone: "DevExperience"
+  labels: ["feature"]
+
+- title: "Modular Packaging"
+  body: |
+    **Epic:** Modular Architecture  
+    **Feature:** Modular Packages  
+
+    - [ ] Package each feature separately (NuGet)  
+    - [ ] Allow consumers to install only required packages  
+    - [ ] Enforce modular boundaries  
+  milestone: "Modular"
+  labels: ["feature"]
+
+- title: "Documentation & Samples"
+  body: |
+    **Epic:** Documentation  
+    **Feature:** Documentation & Example Microservice  
+
+    - [ ] Create sample microservice using CQRS + EventBus + Persistence  
+    - [ ] Docker-compose with Kafka + Postgres  
+    - [ ] Usage guide and documentation portal  
+  milestone: "Documentation"
+  labels: ["feature"]
